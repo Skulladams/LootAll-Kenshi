@@ -1,0 +1,39 @@
+AbiChecks.cpp
+Config.cpp
+ConfigFile.cpp
+HookInstallation.cpp
+Hotkeys.cpp
+InventoryTransfer.cpp
+C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\KenshiLib_Examples_deps\KenshiLib\Include\mygui/common/baselayout/BaseLayout.h(261) : warning C4091: '__declspec(dllimport)' : ignored on left of 'wraps::BaseLayout' when no variable is declared
+Logger.cpp
+LootCandidate.cpp
+LootFilters.cpp
+LootManager.cpp
+C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\KenshiLib_Examples_deps\KenshiLib\Include\mygui/common/baselayout/BaseLayout.h(261) : warning C4091: '__declspec(dllimport)' : ignored on left of 'wraps::BaseLayout' when no variable is declared
+Plugin.cpp
+C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\KenshiLib_Examples_deps\KenshiLib\Include\mygui/common/baselayout/BaseLayout.h(261) : warning C4091: '__declspec(dllimport)' : ignored on left of 'wraps::BaseLayout' when no variable is declared
+WorldScanner.cpp
+C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\KenshiLib_Examples_deps\KenshiLib\Include\mygui/common/baselayout/BaseLayout.h(261) : warning C4091: '__declspec(dllimport)' : ignored on left of 'wraps::BaseLayout' when no variable is declared
+   Creating library C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\build-1.0.1\LootAll.lib and object C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\build-1.0.1\LootAll.exp
+Generating code
+Finished generating code
+Static hook-address verification (neither DLL executed)
+LootAll SHA256: d2117c70f6b57543b536626f6c614724d270637b887b13609b1aceed5a1fa2a6
+KenshiLib SHA256: 5b6240622d06801dc39896e385efb834b8e1fe2fcdf86067d071ae7a04f6c83b
+KenshiLib exported stub table: RVA 0x15B46 .. 0x20DEA
+PASS: KenshiLib RVA 0x1AF64: ?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ; jmp qword ptr [rip + 0xc30be]
+PASS: KenshiLib RVA 0x1BF36: ?_NV_show@InventoryGUI@@QEAAX_N@Z; jmp qword ptr [rip + 0xc3604]
+PASS: KenshiLib RVA 0x1BFC6: ?_DESTRUCTOR@InventoryGUI@@QEAAXXZ; jmp qword ptr [rip + 0xc3634]
+PASS: KenshiLib RVA 0x1BF30: ?_NV_update@InventoryGUI@@QEAAXXZ; jmp qword ptr [rip + 0xc3602]
+PASS: call RVA 0x12291, argument MOV at RVA 0x1228A, IAT RVA 0x18120 -> KenshiLib!?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ (stub RVA 0x1AF64)
+PASS: call RVA 0x124B7, argument MOV at RVA 0x124B0, IAT RVA 0x18208 -> KenshiLib!?_NV_show@InventoryGUI@@QEAAX_N@Z (stub RVA 0x1BF36)
+PASS: call RVA 0x126EF, argument MOV at RVA 0x126E8, IAT RVA 0x180F8 -> KenshiLib!?_DESTRUCTOR@InventoryGUI@@QEAAXXZ (stub RVA 0x1BFC6)
+PASS: call RVA 0x1287F, argument MOV at RVA 0x12878, IAT RVA 0x18108 -> KenshiLib!?_NV_update@InventoryGUI@@QEAAXXZ (stub RVA 0x1BF30)
+PASS: PE32+ AMD64 DLL, correct startPlugin export
+PASS: KenshiLib.dll, 44 named imports present
+PASS: KERNEL32.dll, 22 named imports present
+PASS: USER32.dll, 3 named imports present
+PASS: MSVCP100.dll, 56 named imports present
+PASS: MSVCR100.dll, 48 named imports present
+PASS: all 173 direct imports resolve statically. This is not an in-game load test.
+BUILD SUCCEEDED: C:\Users\alexa\Documents\Codex\2026-09-17\files-pasted-by-the-user-one\work\build-1.0.1\LootAll.dll

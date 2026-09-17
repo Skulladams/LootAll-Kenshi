@@ -1,0 +1,492 @@
+Static hook-address verification (neither DLL executed)
+LootAll SHA256: d2117c70f6b57543b536626f6c614724d270637b887b13609b1aceed5a1fa2a6
+KenshiLib SHA256: 5b6240622d06801dc39896e385efb834b8e1fe2fcdf86067d071ae7a04f6c83b
+KenshiLib exported stub table: RVA 0x15B46 .. 0x20DEA
+PASS: KenshiLib RVA 0x1AF64: ?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ; jmp qword ptr [rip + 0xc30be]
+PASS: KenshiLib RVA 0x1BF36: ?_NV_show@InventoryGUI@@QEAAX_N@Z; jmp qword ptr [rip + 0xc3604]
+PASS: KenshiLib RVA 0x1BFC6: ?_DESTRUCTOR@InventoryGUI@@QEAAXXZ; jmp qword ptr [rip + 0xc3634]
+PASS: KenshiLib RVA 0x1BF30: ?_NV_update@InventoryGUI@@QEAAXXZ; jmp qword ptr [rip + 0xc3602]
+PASS: call RVA 0x12291, argument MOV at RVA 0x1228A, IAT RVA 0x18120 -> KenshiLib!?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ (stub RVA 0x1AF64)
+PASS: call RVA 0x124B7, argument MOV at RVA 0x124B0, IAT RVA 0x18208 -> KenshiLib!?_NV_show@InventoryGUI@@QEAAX_N@Z (stub RVA 0x1BF36)
+PASS: call RVA 0x126EF, argument MOV at RVA 0x126E8, IAT RVA 0x180F8 -> KenshiLib!?_DESTRUCTOR@InventoryGUI@@QEAAXXZ (stub RVA 0x1BFC6)
+PASS: call RVA 0x1287F, argument MOV at RVA 0x12878, IAT RVA 0x18108 -> KenshiLib!?_NV_update@InventoryGUI@@QEAAXXZ (stub RVA 0x1BF30)
+PASS: all 4 GetRealAddress calls use actual imported generated stubs; no local thunk arguments.
+Runtime relocated addresses are checked by ValidateGameStub before every call. In-game startup remains untested.
+
+Complete startPlugin disassembly (preferred image addresses; ASLR may relocate):
+00000001800120E0  40 57                    push     rdi                                              
+00000001800120E2  48 81 ec e0 00 00 00     sub      rsp, 0xe0                                        
+00000001800120E9  48 c7 44 24 28 fe ff ff ff mov      qword ptr [rsp + 0x28], 0xfffffffffffffffe       
+00000001800120F2  48 89 9c 24 f0 00 00 00  mov      qword ptr [rsp + 0xf0], rbx                      
+00000001800120FA  48 8b 05 1f ef 00 00     mov      rax, qword ptr [rip + 0xef1f]                    
+0000000180012101  48 33 c4                 xor      rax, rsp                                         
+0000000180012104  48 89 84 24 d8 00 00 00  mov      qword ptr [rsp + 0xd8], rax                      
+000000018001210C  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+0000000180012115  33 ff                    xor      edi, edi                                         
+0000000180012117  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+000000018001211C  40 88 7c 24 38           mov      byte ptr [rsp + 0x38], dil                       
+0000000180012121  45 33 c0                 xor      r8d, r8d                                         
+0000000180012124  8d 57 13                 lea      edx, [rdi + 0x13]                                
+0000000180012127  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+000000018001212C  e8 8f 38 ff ff           call     0x1800059c0                                      
+0000000180012131  4c 8d 5c 24 38           lea      r11, [rsp + 0x38]                                
+0000000180012136  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+000000018001213C  4c 0f 43 5c 24 38        cmovae   r11, qword ptr [rsp + 0x38]                      
+0000000180012142  48 8b 05 27 72 00 00     mov      rax, qword ptr [rip + 0x7227]                    
+0000000180012149  49 89 03                 mov      qword ptr [r11], rax                             
+000000018001214C  48 8b 05 25 72 00 00     mov      rax, qword ptr [rip + 0x7225]                    
+0000000180012153  49 89 43 08              mov      qword ptr [r11 + 8], rax                         
+0000000180012157  0f b7 05 22 72 00 00     movzx    eax, word ptr [rip + 0x7222]                     
+000000018001215E  66 41 89 43 10           mov      word ptr [r11 + 0x10], ax                        
+0000000180012163  0f b6 05 18 72 00 00     movzx    eax, byte ptr [rip + 0x7218]                     
+000000018001216A  41 88 43 12              mov      byte ptr [r11 + 0x12], al                        
+000000018001216E  48 c7 44 24 48 13 00 00 00 mov      qword ptr [rsp + 0x48], 0x13                     
+0000000180012177  48 8d 44 24 38           lea      rax, [rsp + 0x38]                                
+000000018001217C  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+0000000180012182  48 0f 43 44 24 38        cmovae   rax, qword ptr [rsp + 0x38]                      
+0000000180012188  40 88 78 13              mov      byte ptr [rax + 0x13], dil                       
+000000018001218C  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+0000000180012191  e8 6a 93 ff ff           call     0x18000b500                                      
+0000000180012196  90                       nop                                                       
+0000000180012197  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+000000018001219D  72 0b                    jb       0x1800121aa                                      
+000000018001219F  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+00000001800121A4  ff 15 9e 63 00 00        call     qword ptr [rip + 0x639e]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800121AA  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+00000001800121B3  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+00000001800121B8  c6 44 24 38 00           mov      byte ptr [rsp + 0x38], 0                         
+00000001800121BD  45 33 c0                 xor      r8d, r8d                                         
+00000001800121C0  41 8d 50 38              lea      edx, [r8 + 0x38]                                 
+00000001800121C4  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+00000001800121C9  e8 f2 37 ff ff           call     0x1800059c0                                      
+00000001800121CE  4c 8d 5c 24 38           lea      r11, [rsp + 0x38]                                
+00000001800121D3  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+00000001800121D9  4c 0f 43 5c 24 38        cmovae   r11, qword ptr [rsp + 0x38]                      
+00000001800121DF  48 8b 05 a2 71 00 00     mov      rax, qword ptr [rip + 0x71a2]                    
+00000001800121E6  49 89 03                 mov      qword ptr [r11], rax                             
+00000001800121E9  48 8b 05 a0 71 00 00     mov      rax, qword ptr [rip + 0x71a0]                    
+00000001800121F0  49 89 43 08              mov      qword ptr [r11 + 8], rax                         
+00000001800121F4  48 8b 05 9d 71 00 00     mov      rax, qword ptr [rip + 0x719d]                    
+00000001800121FB  49 89 43 10              mov      qword ptr [r11 + 0x10], rax                      
+00000001800121FF  48 8b 05 9a 71 00 00     mov      rax, qword ptr [rip + 0x719a]                    
+0000000180012206  49 89 43 18              mov      qword ptr [r11 + 0x18], rax                      
+000000018001220A  48 8b 05 97 71 00 00     mov      rax, qword ptr [rip + 0x7197]                    
+0000000180012211  49 89 43 20              mov      qword ptr [r11 + 0x20], rax                      
+0000000180012215  48 8b 05 94 71 00 00     mov      rax, qword ptr [rip + 0x7194]                    
+000000018001221C  49 89 43 28              mov      qword ptr [r11 + 0x28], rax                      
+0000000180012220  48 8b 05 91 71 00 00     mov      rax, qword ptr [rip + 0x7191]                    
+0000000180012227  49 89 43 30              mov      qword ptr [r11 + 0x30], rax                      
+000000018001222B  48 c7 44 24 48 38 00 00 00 mov      qword ptr [rsp + 0x48], 0x38                     
+0000000180012234  48 8d 44 24 38           lea      rax, [rsp + 0x38]                                
+0000000180012239  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+000000018001223F  48 0f 43 44 24 38        cmovae   rax, qword ptr [rsp + 0x38]                      
+0000000180012245  c6 40 38 00              mov      byte ptr [rax + 0x38], 0                         
+0000000180012249  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+000000018001224E  e8 ad 92 ff ff           call     0x18000b500                                      
+0000000180012253  90                       nop                                                       
+0000000180012254  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+000000018001225A  72 0c                    jb       0x180012268                                      
+000000018001225C  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+0000000180012261  ff 15 e1 62 00 00        call     qword ptr [rip + 0x62e1]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012267  90                       nop                                                       
+0000000180012268  4c 8d 05 91 71 00 00     lea      r8, [rip + 0x7191]                               
+000000018001226F  48 8d 15 52 71 00 00     lea      rdx, [rip + 0x7152]                              
+0000000180012276  48 8b 0d a3 5e 00 00     mov      rcx, qword ptr [rip + 0x5ea3]                    kenshilib.dll:?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ
+000000018001227D  e8 ce 81 ff ff           call     0x18000a450                                      
+0000000180012282  84 c0                    test     al, al                                           
+0000000180012284  0f 84 20 08 00 00        je       0x180012aaa                                      
+000000018001228A  48 8b 0d 8f 5e 00 00     mov      rcx, qword ptr [rip + 0x5e8f]                    kenshilib.dll:?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ
+0000000180012291  ff 15 81 5e 00 00        call     qword ptr [rip + 0x5e81]                         kenshilib.dll:?GetRealAddress@KenshiLib@@YA_JPEAX@Z
+0000000180012297  48 8b d8                 mov      rbx, rax                                         
+000000018001229A  48 8d 15 5f 71 00 00     lea      rdx, [rip + 0x715f]                              
+00000001800122A1  48 8b c8                 mov      rcx, rax                                         
+00000001800122A4  e8 27 85 ff ff           call     0x18000a7d0                                      
+00000001800122A9  84 c0                    test     al, al                                           
+00000001800122AB  0f 84 f9 07 00 00        je       0x180012aaa                                      
+00000001800122B1  4c 8d 05 e8 f9 00 00     lea      r8, [rip + 0xf9e8]                               
+00000001800122B8  48 8d 15 f1 fd ff ff     lea      rdx, [rip - 0x20f]                               
+00000001800122BF  48 8b cb                 mov      rcx, rbx                                         
+00000001800122C2  ff 15 48 5e 00 00        call     qword ptr [rip + 0x5e48]                         kenshilib.dll:?AddHook@KenshiLib@@YA?AW4HookStatus@1@PEAX0PEAPEAX@Z
+00000001800122C8  45 33 c0                 xor      r8d, r8d                                         
+00000001800122CB  41 8d 50 18              lea      edx, [r8 + 0x18]                                 
+00000001800122CF  85 c0                    test     eax, eax                                         
+00000001800122D1  0f 84 e0 00 00 00        je       0x1800123b7                                      
+00000001800122D7  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+00000001800122E0  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+00000001800122E5  44 88 44 24 38           mov      byte ptr [rsp + 0x38], r8b                       
+00000001800122EA  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+00000001800122EF  e8 cc 36 ff ff           call     0x1800059c0                                      
+00000001800122F4  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+00000001800122F9  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+00000001800122FF  48 0f 43 4c 24 38        cmovae   rcx, qword ptr [rsp + 0x38]                      
+0000000180012305  48 8b 05 f4 70 00 00     mov      rax, qword ptr [rip + 0x70f4]                    
+000000018001230C  48 89 01                 mov      qword ptr [rcx], rax                             
+000000018001230F  48 8b 05 f2 70 00 00     mov      rax, qword ptr [rip + 0x70f2]                    
+0000000180012316  48 89 41 08              mov      qword ptr [rcx + 8], rax                         
+000000018001231A  48 8b 05 ef 70 00 00     mov      rax, qword ptr [rip + 0x70ef]                    
+0000000180012321  48 89 41 10              mov      qword ptr [rcx + 0x10], rax                      
+0000000180012325  48 c7 44 24 48 18 00 00 00 mov      qword ptr [rsp + 0x48], 0x18                     
+000000018001232E  48 8d 44 24 38           lea      rax, [rsp + 0x38]                                
+0000000180012333  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+0000000180012339  48 0f 43 44 24 38        cmovae   rax, qword ptr [rsp + 0x38]                      
+000000018001233F  c6 40 18 00              mov      byte ptr [rax + 0x18], 0                         
+0000000180012343  4c 8d 05 66 72 00 00     lea      r8, [rip + 0x7266]                               
+000000018001234A  48 8d 54 24 38           lea      rdx, [rsp + 0x38]                                
+000000018001234F  48 8d 8c 24 b0 00 00 00  lea      rcx, [rsp + 0xb0]                                
+0000000180012357  e8 d4 43 ff ff           call     0x180006730                                      
+000000018001235C  90                       nop                                                       
+000000018001235D  48 8b c8                 mov      rcx, rax                                         
+0000000180012360  e8 9b 91 ff ff           call     0x18000b500                                      
+0000000180012365  90                       nop                                                       
+0000000180012366  48 83 bc 24 c8 00 00 00 10 cmp      qword ptr [rsp + 0xc8], 0x10                     
+000000018001236F  72 0e                    jb       0x18001237f                                      
+0000000180012371  48 8b 8c 24 b0 00 00 00  mov      rcx, qword ptr [rsp + 0xb0]                      
+0000000180012379  ff 15 c9 61 00 00        call     qword ptr [rip + 0x61c9]                         msvcr100.dll:??3@YAXPEAX@Z
+000000018001237F  48 c7 84 24 c8 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xc8], 0xf                      
+000000018001238B  48 89 bc 24 c0 00 00 00  mov      qword ptr [rsp + 0xc0], rdi                      
+0000000180012393  c6 84 24 b0 00 00 00 00  mov      byte ptr [rsp + 0xb0], 0                         
+000000018001239B  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+00000001800123A1  0f 82 03 07 00 00        jb       0x180012aaa                                      
+00000001800123A7  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+00000001800123AC  ff 15 96 61 00 00        call     qword ptr [rip + 0x6196]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800123B2  e9 f3 06 00 00           jmp      0x180012aaa                                      
+00000001800123B7  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+00000001800123C0  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+00000001800123C5  c6 44 24 60 00           mov      byte ptr [rsp + 0x60], 0                         
+00000001800123CA  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+00000001800123CF  e8 ec 35 ff ff           call     0x1800059c0                                      
+00000001800123D4  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+00000001800123D9  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+00000001800123DF  48 0f 43 4c 24 60        cmovae   rcx, qword ptr [rsp + 0x60]                      
+00000001800123E5  48 8b 05 14 70 00 00     mov      rax, qword ptr [rip + 0x7014]                    
+00000001800123EC  48 89 01                 mov      qword ptr [rcx], rax                             
+00000001800123EF  48 8b 05 12 70 00 00     mov      rax, qword ptr [rip + 0x7012]                    
+00000001800123F6  48 89 41 08              mov      qword ptr [rcx + 8], rax                         
+00000001800123FA  48 8b 05 0f 70 00 00     mov      rax, qword ptr [rip + 0x700f]                    
+0000000180012401  48 89 41 10              mov      qword ptr [rcx + 0x10], rax                      
+0000000180012405  48 c7 44 24 70 18 00 00 00 mov      qword ptr [rsp + 0x70], 0x18                     
+000000018001240E  48 8d 44 24 60           lea      rax, [rsp + 0x60]                                
+0000000180012413  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012419  48 0f 43 44 24 60        cmovae   rax, qword ptr [rsp + 0x60]                      
+000000018001241F  c6 40 18 00              mov      byte ptr [rax + 0x18], 0                         
+0000000180012423  4c 8d 05 ae 71 00 00     lea      r8, [rip + 0x71ae]                               
+000000018001242A  48 8d 54 24 60           lea      rdx, [rsp + 0x60]                                
+000000018001242F  48 8d 8c 24 88 00 00 00  lea      rcx, [rsp + 0x88]                                
+0000000180012437  e8 f4 42 ff ff           call     0x180006730                                      
+000000018001243C  90                       nop                                                       
+000000018001243D  48 8b c8                 mov      rcx, rax                                         
+0000000180012440  e8 bb 90 ff ff           call     0x18000b500                                      
+0000000180012445  90                       nop                                                       
+0000000180012446  48 83 bc 24 a0 00 00 00 10 cmp      qword ptr [rsp + 0xa0], 0x10                     
+000000018001244F  72 0e                    jb       0x18001245f                                      
+0000000180012451  48 8b 8c 24 88 00 00 00  mov      rcx, qword ptr [rsp + 0x88]                      
+0000000180012459  ff 15 e9 60 00 00        call     qword ptr [rip + 0x60e9]                         msvcr100.dll:??3@YAXPEAX@Z
+000000018001245F  48 c7 84 24 a0 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xa0], 0xf                      
+000000018001246B  48 89 bc 24 98 00 00 00  mov      qword ptr [rsp + 0x98], rdi                      
+0000000180012473  c6 84 24 88 00 00 00 00  mov      byte ptr [rsp + 0x88], 0                         
+000000018001247B  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012481  72 0b                    jb       0x18001248e                                      
+0000000180012483  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+0000000180012488  ff 15 ba 60 00 00        call     qword ptr [rip + 0x60ba]                         msvcr100.dll:??3@YAXPEAX@Z
+000000018001248E  4c 8d 05 b3 6f 00 00     lea      r8, [rip + 0x6fb3]                               
+0000000180012495  48 8d 15 84 6f 00 00     lea      rdx, [rip + 0x6f84]                              
+000000018001249C  48 8b 0d 65 5d 00 00     mov      rcx, qword ptr [rip + 0x5d65]                    kenshilib.dll:?_NV_show@InventoryGUI@@QEAAX_N@Z
+00000001800124A3  e8 a8 7f ff ff           call     0x18000a450                                      
+00000001800124A8  84 c0                    test     al, al                                           
+00000001800124AA  0f 84 f8 05 00 00        je       0x180012aa8                                      
+00000001800124B0  48 8b 0d 51 5d 00 00     mov      rcx, qword ptr [rip + 0x5d51]                    kenshilib.dll:?_NV_show@InventoryGUI@@QEAAX_N@Z
+00000001800124B7  ff 15 5b 5c 00 00        call     qword ptr [rip + 0x5c5b]                         kenshilib.dll:?GetRealAddress@KenshiLib@@YA_JPEAX@Z
+00000001800124BD  48 8b d8                 mov      rbx, rax                                         
+00000001800124C0  48 8d 15 81 6f 00 00     lea      rdx, [rip + 0x6f81]                              
+00000001800124C7  48 8b c8                 mov      rcx, rax                                         
+00000001800124CA  e8 01 83 ff ff           call     0x18000a7d0                                      
+00000001800124CF  84 c0                    test     al, al                                           
+00000001800124D1  0f 84 d1 05 00 00        je       0x180012aa8                                      
+00000001800124D7  4c 8d 05 b2 f7 00 00     lea      r8, [rip + 0xf7b2]                               
+00000001800124DE  48 8d 15 bb fa ff ff     lea      rdx, [rip - 0x545]                               
+00000001800124E5  48 8b cb                 mov      rcx, rbx                                         
+00000001800124E8  ff 15 22 5c 00 00        call     qword ptr [rip + 0x5c22]                         kenshilib.dll:?AddHook@KenshiLib@@YA?AW4HookStatus@1@PEAX0PEAPEAX@Z
+00000001800124EE  45 33 c0                 xor      r8d, r8d                                         
+00000001800124F1  41 8d 50 16              lea      edx, [r8 + 0x16]                                 
+00000001800124F5  85 c0                    test     eax, eax                                         
+00000001800124F7  0f 84 e9 00 00 00        je       0x1800125e6                                      
+00000001800124FD  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+0000000180012506  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+000000018001250B  44 88 44 24 60           mov      byte ptr [rsp + 0x60], r8b                       
+0000000180012510  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012515  e8 a6 34 ff ff           call     0x1800059c0                                      
+000000018001251A  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+000000018001251F  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012525  48 0f 43 4c 24 60        cmovae   rcx, qword ptr [rsp + 0x60]                      
+000000018001252B  48 8b 05 16 6f 00 00     mov      rax, qword ptr [rip + 0x6f16]                    
+0000000180012532  48 89 01                 mov      qword ptr [rcx], rax                             
+0000000180012535  48 8b 05 14 6f 00 00     mov      rax, qword ptr [rip + 0x6f14]                    
+000000018001253C  48 89 41 08              mov      qword ptr [rcx + 8], rax                         
+0000000180012540  8b 05 12 6f 00 00        mov      eax, dword ptr [rip + 0x6f12]                    
+0000000180012546  89 41 10                 mov      dword ptr [rcx + 0x10], eax                      
+0000000180012549  0f b7 05 0c 6f 00 00     movzx    eax, word ptr [rip + 0x6f0c]                     
+0000000180012550  66 89 41 14              mov      word ptr [rcx + 0x14], ax                        
+0000000180012554  48 c7 44 24 70 16 00 00 00 mov      qword ptr [rsp + 0x70], 0x16                     
+000000018001255D  48 8d 44 24 60           lea      rax, [rsp + 0x60]                                
+0000000180012562  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012568  48 0f 43 44 24 60        cmovae   rax, qword ptr [rsp + 0x60]                      
+000000018001256E  c6 40 16 00              mov      byte ptr [rax + 0x16], 0                         
+0000000180012572  4c 8d 05 37 70 00 00     lea      r8, [rip + 0x7037]                               
+0000000180012579  48 8d 54 24 60           lea      rdx, [rsp + 0x60]                                
+000000018001257E  48 8d 8c 24 88 00 00 00  lea      rcx, [rsp + 0x88]                                
+0000000180012586  e8 a5 41 ff ff           call     0x180006730                                      
+000000018001258B  90                       nop                                                       
+000000018001258C  48 8b c8                 mov      rcx, rax                                         
+000000018001258F  e8 6c 8f ff ff           call     0x18000b500                                      
+0000000180012594  90                       nop                                                       
+0000000180012595  48 83 bc 24 a0 00 00 00 10 cmp      qword ptr [rsp + 0xa0], 0x10                     
+000000018001259E  72 0e                    jb       0x1800125ae                                      
+00000001800125A0  48 8b 8c 24 88 00 00 00  mov      rcx, qword ptr [rsp + 0x88]                      
+00000001800125A8  ff 15 9a 5f 00 00        call     qword ptr [rip + 0x5f9a]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800125AE  48 c7 84 24 a0 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xa0], 0xf                      
+00000001800125BA  48 89 bc 24 98 00 00 00  mov      qword ptr [rsp + 0x98], rdi                      
+00000001800125C2  c6 84 24 88 00 00 00 00  mov      byte ptr [rsp + 0x88], 0                         
+00000001800125CA  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+00000001800125D0  0f 82 d2 04 00 00        jb       0x180012aa8                                      
+00000001800125D6  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+00000001800125DB  ff 15 67 5f 00 00        call     qword ptr [rip + 0x5f67]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800125E1  e9 c2 04 00 00           jmp      0x180012aa8                                      
+00000001800125E6  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+00000001800125EF  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+00000001800125F4  c6 44 24 38 00           mov      byte ptr [rsp + 0x38], 0                         
+00000001800125F9  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+00000001800125FE  e8 bd 33 ff ff           call     0x1800059c0                                      
+0000000180012603  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+0000000180012608  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+000000018001260E  48 0f 43 4c 24 38        cmovae   rcx, qword ptr [rsp + 0x38]                      
+0000000180012614  48 8b 05 2d 6e 00 00     mov      rax, qword ptr [rip + 0x6e2d]                    
+000000018001261B  48 89 01                 mov      qword ptr [rcx], rax                             
+000000018001261E  48 8b 05 2b 6e 00 00     mov      rax, qword ptr [rip + 0x6e2b]                    
+0000000180012625  48 89 41 08              mov      qword ptr [rcx + 8], rax                         
+0000000180012629  8b 05 29 6e 00 00        mov      eax, dword ptr [rip + 0x6e29]                    
+000000018001262F  89 41 10                 mov      dword ptr [rcx + 0x10], eax                      
+0000000180012632  0f b7 05 23 6e 00 00     movzx    eax, word ptr [rip + 0x6e23]                     
+0000000180012639  66 89 41 14              mov      word ptr [rcx + 0x14], ax                        
+000000018001263D  48 c7 44 24 48 16 00 00 00 mov      qword ptr [rsp + 0x48], 0x16                     
+0000000180012646  48 8d 44 24 38           lea      rax, [rsp + 0x38]                                
+000000018001264B  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+0000000180012651  48 0f 43 44 24 38        cmovae   rax, qword ptr [rsp + 0x38]                      
+0000000180012657  c6 40 16 00              mov      byte ptr [rax + 0x16], 0                         
+000000018001265B  4c 8d 05 76 6f 00 00     lea      r8, [rip + 0x6f76]                               
+0000000180012662  48 8d 54 24 38           lea      rdx, [rsp + 0x38]                                
+0000000180012667  48 8d 8c 24 b0 00 00 00  lea      rcx, [rsp + 0xb0]                                
+000000018001266F  e8 bc 40 ff ff           call     0x180006730                                      
+0000000180012674  90                       nop                                                       
+0000000180012675  48 8b c8                 mov      rcx, rax                                         
+0000000180012678  e8 83 8e ff ff           call     0x18000b500                                      
+000000018001267D  90                       nop                                                       
+000000018001267E  48 83 bc 24 c8 00 00 00 10 cmp      qword ptr [rsp + 0xc8], 0x10                     
+0000000180012687  72 0e                    jb       0x180012697                                      
+0000000180012689  48 8b 8c 24 b0 00 00 00  mov      rcx, qword ptr [rsp + 0xb0]                      
+0000000180012691  ff 15 b1 5e 00 00        call     qword ptr [rip + 0x5eb1]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012697  48 c7 84 24 c8 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xc8], 0xf                      
+00000001800126A3  48 89 bc 24 c0 00 00 00  mov      qword ptr [rsp + 0xc0], rdi                      
+00000001800126AB  c6 84 24 b0 00 00 00 00  mov      byte ptr [rsp + 0xb0], 0                         
+00000001800126B3  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+00000001800126B9  72 0b                    jb       0x1800126c6                                      
+00000001800126BB  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+00000001800126C0  ff 15 82 5e 00 00        call     qword ptr [rip + 0x5e82]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800126C6  4c 8d 05 bb 6d 00 00     lea      r8, [rip + 0x6dbb]                               
+00000001800126CD  48 8d 15 8c 6d 00 00     lea      rdx, [rip + 0x6d8c]                              
+00000001800126D4  48 8b 0d 1d 5a 00 00     mov      rcx, qword ptr [rip + 0x5a1d]                    kenshilib.dll:?_DESTRUCTOR@InventoryGUI@@QEAAXXZ
+00000001800126DB  e8 70 7d ff ff           call     0x18000a450                                      
+00000001800126E0  84 c0                    test     al, al                                           
+00000001800126E2  0f 84 be 03 00 00        je       0x180012aa6                                      
+00000001800126E8  48 8b 0d 09 5a 00 00     mov      rcx, qword ptr [rip + 0x5a09]                    kenshilib.dll:?_DESTRUCTOR@InventoryGUI@@QEAAXXZ
+00000001800126EF  ff 15 23 5a 00 00        call     qword ptr [rip + 0x5a23]                         kenshilib.dll:?GetRealAddress@KenshiLib@@YA_JPEAX@Z
+00000001800126F5  48 8b d8                 mov      rbx, rax                                         
+00000001800126F8  48 8d 15 89 6d 00 00     lea      rdx, [rip + 0x6d89]                              
+00000001800126FF  48 8b c8                 mov      rcx, rax                                         
+0000000180012702  e8 c9 80 ff ff           call     0x18000a7d0                                      
+0000000180012707  84 c0                    test     al, al                                           
+0000000180012709  0f 84 97 03 00 00        je       0x180012aa6                                      
+000000018001270F  4c 8d 05 82 f5 00 00     lea      r8, [rip + 0xf582]                               
+0000000180012716  48 8d 15 43 f9 ff ff     lea      rdx, [rip - 0x6bd]                               
+000000018001271D  48 8b cb                 mov      rcx, rbx                                         
+0000000180012720  ff 15 ea 59 00 00        call     qword ptr [rip + 0x59ea]                         kenshilib.dll:?AddHook@KenshiLib@@YA?AW4HookStatus@1@PEAX0PEAPEAX@Z
+0000000180012726  41 b8 1c 00 00 00        mov      r8d, 0x1c                                        
+000000018001272C  48 8d 15 55 6d 00 00     lea      rdx, [rip + 0x6d55]                              
+0000000180012733  85 c0                    test     eax, eax                                         
+0000000180012735  0f 84 92 00 00 00        je       0x1800127cd                                      
+000000018001273B  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+0000000180012744  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+0000000180012749  c6 44 24 60 00           mov      byte ptr [rsp + 0x60], 0                         
+000000018001274E  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012753  e8 58 2a ff ff           call     0x1800051b0                                      
+0000000180012758  90                       nop                                                       
+0000000180012759  4c 8d 05 50 6e 00 00     lea      r8, [rip + 0x6e50]                               
+0000000180012760  48 8d 54 24 60           lea      rdx, [rsp + 0x60]                                
+0000000180012765  48 8d 8c 24 88 00 00 00  lea      rcx, [rsp + 0x88]                                
+000000018001276D  e8 be 3f ff ff           call     0x180006730                                      
+0000000180012772  90                       nop                                                       
+0000000180012773  48 8b c8                 mov      rcx, rax                                         
+0000000180012776  e8 85 8d ff ff           call     0x18000b500                                      
+000000018001277B  90                       nop                                                       
+000000018001277C  48 83 bc 24 a0 00 00 00 10 cmp      qword ptr [rsp + 0xa0], 0x10                     
+0000000180012785  72 0e                    jb       0x180012795                                      
+0000000180012787  48 8b 8c 24 88 00 00 00  mov      rcx, qword ptr [rsp + 0x88]                      
+000000018001278F  ff 15 b3 5d 00 00        call     qword ptr [rip + 0x5db3]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012795  48 c7 84 24 a0 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xa0], 0xf                      
+00000001800127A1  48 89 bc 24 98 00 00 00  mov      qword ptr [rsp + 0x98], rdi                      
+00000001800127A9  c6 84 24 88 00 00 00 00  mov      byte ptr [rsp + 0x88], 0                         
+00000001800127B1  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+00000001800127B7  0f 82 e9 02 00 00        jb       0x180012aa6                                      
+00000001800127BD  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+00000001800127C2  ff 15 80 5d 00 00        call     qword ptr [rip + 0x5d80]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800127C8  e9 d9 02 00 00           jmp      0x180012aa6                                      
+00000001800127CD  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+00000001800127D6  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+00000001800127DB  c6 44 24 38 00           mov      byte ptr [rsp + 0x38], 0                         
+00000001800127E0  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+00000001800127E5  e8 c6 29 ff ff           call     0x1800051b0                                      
+00000001800127EA  90                       nop                                                       
+00000001800127EB  4c 8d 05 e6 6d 00 00     lea      r8, [rip + 0x6de6]                               
+00000001800127F2  48 8d 54 24 38           lea      rdx, [rsp + 0x38]                                
+00000001800127F7  48 8d 8c 24 b0 00 00 00  lea      rcx, [rsp + 0xb0]                                
+00000001800127FF  e8 2c 3f ff ff           call     0x180006730                                      
+0000000180012804  90                       nop                                                       
+0000000180012805  48 8b c8                 mov      rcx, rax                                         
+0000000180012808  e8 f3 8c ff ff           call     0x18000b500                                      
+000000018001280D  90                       nop                                                       
+000000018001280E  48 83 bc 24 c8 00 00 00 10 cmp      qword ptr [rsp + 0xc8], 0x10                     
+0000000180012817  72 0e                    jb       0x180012827                                      
+0000000180012819  48 8b 8c 24 b0 00 00 00  mov      rcx, qword ptr [rsp + 0xb0]                      
+0000000180012821  ff 15 21 5d 00 00        call     qword ptr [rip + 0x5d21]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012827  48 c7 84 24 c8 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xc8], 0xf                      
+0000000180012833  48 89 bc 24 c0 00 00 00  mov      qword ptr [rsp + 0xc0], rdi                      
+000000018001283B  c6 84 24 b0 00 00 00 00  mov      byte ptr [rsp + 0xb0], 0                         
+0000000180012843  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+0000000180012849  72 0b                    jb       0x180012856                                      
+000000018001284B  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+0000000180012850  ff 15 f2 5c 00 00        call     qword ptr [rip + 0x5cf2]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012856  4c 8d 05 73 6c 00 00     lea      r8, [rip + 0x6c73]                               
+000000018001285D  48 8d 15 44 6c 00 00     lea      rdx, [rip + 0x6c44]                              
+0000000180012864  48 8b 0d 9d 58 00 00     mov      rcx, qword ptr [rip + 0x589d]                    kenshilib.dll:?_NV_update@InventoryGUI@@QEAAXXZ
+000000018001286B  e8 e0 7b ff ff           call     0x18000a450                                      
+0000000180012870  84 c0                    test     al, al                                           
+0000000180012872  0f 84 2c 02 00 00        je       0x180012aa4                                      
+0000000180012878  48 8b 0d 89 58 00 00     mov      rcx, qword ptr [rip + 0x5889]                    kenshilib.dll:?_NV_update@InventoryGUI@@QEAAXXZ
+000000018001287F  ff 15 93 58 00 00        call     qword ptr [rip + 0x5893]                         kenshilib.dll:?GetRealAddress@KenshiLib@@YA_JPEAX@Z
+0000000180012885  48 8b d8                 mov      rbx, rax                                         
+0000000180012888  48 8d 15 41 6c 00 00     lea      rdx, [rip + 0x6c41]                              
+000000018001288F  48 8b c8                 mov      rcx, rax                                         
+0000000180012892  e8 39 7f ff ff           call     0x18000a7d0                                      
+0000000180012897  84 c0                    test     al, al                                           
+0000000180012899  0f 84 05 02 00 00        je       0x180012aa4                                      
+000000018001289F  4c 8d 05 e2 f3 00 00     lea      r8, [rip + 0xf3e2]                               
+00000001800128A6  48 8d 15 b3 f6 ff ff     lea      rdx, [rip - 0x94d]                               
+00000001800128AD  48 8b cb                 mov      rcx, rbx                                         
+00000001800128B0  ff 15 5a 58 00 00        call     qword ptr [rip + 0x585a]                         kenshilib.dll:?AddHook@KenshiLib@@YA?AW4HookStatus@1@PEAX0PEAPEAX@Z
+00000001800128B6  41 b8 18 00 00 00        mov      r8d, 0x18                                        
+00000001800128BC  48 8d 15 0d 6c 00 00     lea      rdx, [rip + 0x6c0d]                              
+00000001800128C3  85 c0                    test     eax, eax                                         
+00000001800128C5  0f 84 92 00 00 00        je       0x18001295d                                      
+00000001800128CB  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+00000001800128D4  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+00000001800128D9  c6 44 24 60 00           mov      byte ptr [rsp + 0x60], 0                         
+00000001800128DE  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+00000001800128E3  e8 c8 28 ff ff           call     0x1800051b0                                      
+00000001800128E8  90                       nop                                                       
+00000001800128E9  4c 8d 05 c0 6c 00 00     lea      r8, [rip + 0x6cc0]                               
+00000001800128F0  48 8d 54 24 60           lea      rdx, [rsp + 0x60]                                
+00000001800128F5  48 8d 8c 24 88 00 00 00  lea      rcx, [rsp + 0x88]                                
+00000001800128FD  e8 2e 3e ff ff           call     0x180006730                                      
+0000000180012902  90                       nop                                                       
+0000000180012903  48 8b c8                 mov      rcx, rax                                         
+0000000180012906  e8 f5 8b ff ff           call     0x18000b500                                      
+000000018001290B  90                       nop                                                       
+000000018001290C  48 83 bc 24 a0 00 00 00 10 cmp      qword ptr [rsp + 0xa0], 0x10                     
+0000000180012915  72 0e                    jb       0x180012925                                      
+0000000180012917  48 8b 8c 24 88 00 00 00  mov      rcx, qword ptr [rsp + 0x88]                      
+000000018001291F  ff 15 23 5c 00 00        call     qword ptr [rip + 0x5c23]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012925  48 c7 84 24 a0 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xa0], 0xf                      
+0000000180012931  48 89 bc 24 98 00 00 00  mov      qword ptr [rsp + 0x98], rdi                      
+0000000180012939  c6 84 24 88 00 00 00 00  mov      byte ptr [rsp + 0x88], 0                         
+0000000180012941  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012947  0f 82 57 01 00 00        jb       0x180012aa4                                      
+000000018001294D  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+0000000180012952  ff 15 f0 5b 00 00        call     qword ptr [rip + 0x5bf0]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012958  e9 47 01 00 00           jmp      0x180012aa4                                      
+000000018001295D  48 c7 44 24 50 0f 00 00 00 mov      qword ptr [rsp + 0x50], 0xf                      
+0000000180012966  48 89 7c 24 48           mov      qword ptr [rsp + 0x48], rdi                      
+000000018001296B  c6 44 24 38 00           mov      byte ptr [rsp + 0x38], 0                         
+0000000180012970  48 8d 4c 24 38           lea      rcx, [rsp + 0x38]                                
+0000000180012975  e8 36 28 ff ff           call     0x1800051b0                                      
+000000018001297A  90                       nop                                                       
+000000018001297B  4c 8d 05 56 6c 00 00     lea      r8, [rip + 0x6c56]                               
+0000000180012982  48 8d 54 24 38           lea      rdx, [rsp + 0x38]                                
+0000000180012987  48 8d 8c 24 b0 00 00 00  lea      rcx, [rsp + 0xb0]                                
+000000018001298F  e8 9c 3d ff ff           call     0x180006730                                      
+0000000180012994  90                       nop                                                       
+0000000180012995  48 8b c8                 mov      rcx, rax                                         
+0000000180012998  e8 63 8b ff ff           call     0x18000b500                                      
+000000018001299D  90                       nop                                                       
+000000018001299E  48 83 bc 24 c8 00 00 00 10 cmp      qword ptr [rsp + 0xc8], 0x10                     
+00000001800129A7  72 0e                    jb       0x1800129b7                                      
+00000001800129A9  48 8b 8c 24 b0 00 00 00  mov      rcx, qword ptr [rsp + 0xb0]                      
+00000001800129B1  ff 15 91 5b 00 00        call     qword ptr [rip + 0x5b91]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800129B7  48 c7 84 24 c8 00 00 00 0f 00 00 00 mov      qword ptr [rsp + 0xc8], 0xf                      
+00000001800129C3  48 89 bc 24 c0 00 00 00  mov      qword ptr [rsp + 0xc0], rdi                      
+00000001800129CB  c6 84 24 b0 00 00 00 00  mov      byte ptr [rsp + 0xb0], 0                         
+00000001800129D3  48 83 7c 24 50 10        cmp      qword ptr [rsp + 0x50], 0x10                     
+00000001800129D9  72 0b                    jb       0x1800129e6                                      
+00000001800129DB  48 8b 4c 24 38           mov      rcx, qword ptr [rsp + 0x38]                      
+00000001800129E0  ff 15 62 5b 00 00        call     qword ptr [rip + 0x5b62]                         msvcr100.dll:??3@YAXPEAX@Z
+00000001800129E6  b9 98 01 00 00           mov      ecx, 0x198                                       
+00000001800129EB  ff 15 0f 5a 00 00        call     qword ptr [rip + 0x5a0f]                         msvcr100.dll:??2@YAPEAX_K@Z
+00000001800129F1  48 89 44 24 20           mov      qword ptr [rsp + 0x20], rax                      
+00000001800129F6  48 85 c0                 test     rax, rax                                         
+00000001800129F9  74 0a                    je       0x180012a05                                      
+00000001800129FB  48 8b c8                 mov      rcx, rax                                         
+00000001800129FE  e8 0d c1 ff ff           call     0x18000eb10                                      
+0000000180012A03  eb 03                    jmp      0x180012a08                                      
+0000000180012A05  48 8b c7                 mov      rax, rdi                                         
+0000000180012A08  48 89 05 71 f2 00 00     mov      qword ptr [rip + 0xf271], rax                    
+0000000180012A0F  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+0000000180012A18  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+0000000180012A1D  c6 44 24 60 00           mov      byte ptr [rsp + 0x60], 0                         
+0000000180012A22  41 b8 5a 00 00 00        mov      r8d, 0x5a                                        
+0000000180012A28  48 8d 15 c1 6a 00 00     lea      rdx, [rip + 0x6ac1]                              
+0000000180012A2F  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012A34  e8 77 27 ff ff           call     0x1800051b0                                      
+0000000180012A39  90                       nop                                                       
+0000000180012A3A  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012A3F  e8 bc 8a ff ff           call     0x18000b500                                      
+0000000180012A44  90                       nop                                                       
+0000000180012A45  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012A4B  72 0b                    jb       0x180012a58                                      
+0000000180012A4D  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+0000000180012A52  ff 15 f0 5a 00 00        call     qword ptr [rip + 0x5af0]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012A58  48 c7 44 24 78 0f 00 00 00 mov      qword ptr [rsp + 0x78], 0xf                      
+0000000180012A61  48 89 7c 24 70           mov      qword ptr [rsp + 0x70], rdi                      
+0000000180012A66  c6 44 24 60 00           mov      byte ptr [rsp + 0x60], 0                         
+0000000180012A6B  41 b8 17 00 00 00        mov      r8d, 0x17                                        
+0000000180012A71  48 8d 15 d8 6a 00 00     lea      rdx, [rip + 0x6ad8]                              
+0000000180012A78  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012A7D  e8 2e 27 ff ff           call     0x1800051b0                                      
+0000000180012A82  90                       nop                                                       
+0000000180012A83  48 8d 4c 24 60           lea      rcx, [rsp + 0x60]                                
+0000000180012A88  e8 73 8a ff ff           call     0x18000b500                                      
+0000000180012A8D  90                       nop                                                       
+0000000180012A8E  48 83 7c 24 78 10        cmp      qword ptr [rsp + 0x78], 0x10                     
+0000000180012A94  72 0c                    jb       0x180012aa2                                      
+0000000180012A96  48 8b 4c 24 60           mov      rcx, qword ptr [rsp + 0x60]                      
+0000000180012A9B  ff 15 a7 5a 00 00        call     qword ptr [rip + 0x5aa7]                         msvcr100.dll:??3@YAXPEAX@Z
+0000000180012AA1  90                       nop                                                       
+0000000180012AA2  eb 06                    jmp      0x180012aaa                                      
+0000000180012AA4  eb 04                    jmp      0x180012aaa                                      
+0000000180012AA6  eb 02                    jmp      0x180012aaa                                      
+0000000180012AA8  eb 00                    jmp      0x180012aaa                                      
+0000000180012AAA  48 8b 8c 24 d8 00 00 00  mov      rcx, qword ptr [rsp + 0xd8]                      
+0000000180012AB2  48 33 cc                 xor      rcx, rsp                                         
+0000000180012AB5  e8 26 22 00 00           call     0x180014ce0                                      
+0000000180012ABA  48 8b 9c 24 f0 00 00 00  mov      rbx, qword ptr [rsp + 0xf0]                      
+0000000180012AC2  48 81 c4 e0 00 00 00     add      rsp, 0xe0                                        
+0000000180012AC9  5f                       pop      rdi                                              
+0000000180012ACA  c3                       ret                                                       
+0000000180012ACB  cc                       int3                                                      

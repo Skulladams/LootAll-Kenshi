@@ -1,0 +1,9 @@
+PASS: accepted the complete rebuilt DLL
+PASS: rejected local-image LEA for ?_clearAndDestroyGameWorldStuff@GameWorld@@QEAAXXZ: GetRealAddress at RVA 0x12291 does not immediately load RCX from the IAT (local LEA/thunk or unknown provenance)
+PASS: rejected local-image LEA for ?_NV_show@InventoryGUI@@QEAAX_N@Z: GetRealAddress at RVA 0x124B7 does not immediately load RCX from the IAT (local LEA/thunk or unknown provenance)
+PASS: rejected local-image LEA for ?_DESTRUCTOR@InventoryGUI@@QEAAXXZ: GetRealAddress at RVA 0x126EF does not immediately load RCX from the IAT (local LEA/thunk or unknown provenance)
+PASS: rejected local-image LEA for ?_NV_update@InventoryGUI@@QEAAXXZ: GetRealAddress at RVA 0x1287F does not immediately load RCX from the IAT (local LEA/thunk or unknown provenance)
+PASS: rejected wrong imported symbol as game-stub argument: Unreviewed GetRealAddress reference at RVA 0x1228A
+PASS: rejected missing lifecycle resolver call: Expected exactly one audited call per hook, with no other getter references
+PASS: rejected original crashing LootAll 1.0.0: GetRealAddress at RVA 0x11481 does not immediately load RCX from the IAT (local LEA/thunk or unknown provenance)
+8 binary regression checks passed
